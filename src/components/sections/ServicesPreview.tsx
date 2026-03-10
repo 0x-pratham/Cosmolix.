@@ -12,7 +12,7 @@ const services = [
 ];
 
 const ServicesPreview = () => (
-  <section className="section-spacing relative">
+  <section className="section-spacing relative overflow-hidden">
     <div className="absolute inset-0 bg-glow-bottom pointer-events-none" />
     <div className="container mx-auto px-4 md:px-8 relative z-10">
       <SectionHeader
@@ -20,19 +20,24 @@ const ServicesPreview = () => (
         title="Services Built for Scale"
         description="From AI research to enterprise cloud platforms, we deliver solutions that drive measurable impact."
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
         {services.map((s, i) => (
           <motion.div
             key={s.title}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.1, duration: 0.5 }}
-            className="glass-card-hover p-8"
+            transition={{ delay: i * 0.12, duration: 0.6, ease: "easeOut" }}
+            className="group relative glass-card-hover hover:glow-purple p-8 rounded-2xl transition-all duration-300 hover:-translate-y-1"
           >
-            <s.icon className="w-10 h-10 text-primary mb-5" strokeWidth={1.5} />
-            <h3 className="text-lg font-semibold text-foreground mb-2">{s.title}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+            <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-primary/10 text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+  <s.icon className="w-6 h-6" strokeWidth={1.8} />
+</div>
+            <h3 className="text-xl font-semibold text-foreground mb-3">{s.title}</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed mb-5">{s.desc}</p>
+            <span className="text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+  Learn More →
+</span>
           </motion.div>
         ))}
       </div>

@@ -3,14 +3,14 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "@/assets/cosmolix-logo.jpg";
 
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
+  { href: "/internship", label: "Internship" },
+  { href: "/application-status", label: "Application Status" },
   { href: "/products", label: "Products" },
-  { href: "/contact", label: "Contact" },
 ];
 
 const Navbar = () => {
@@ -30,25 +30,31 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-background/80 backdrop-blur-xl border-b border-border/50"
-          : "bg-transparent"
+  ? "bg-white/70 backdrop-blur-2xl shadow-md border-b border-slate-200/60"
+  : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between h-16 md:h-20 px-4 md:px-8">
-        <Link to="/" className="flex items-center gap-3 mt-4">
-          <img src={logo} alt="Cosmolix" className="h-10 w-25 rounded-sm object-cover" />
-          <span className="text-2xl font-bold text-foreground">Cosmolix</span>
-        </Link>
+      <div className="container mx-auto flex items-center justify-between h-24 md:h-28 px-4 md:px-8">
+        <Link
+  to="/"
+  className="flex items-center transition-transform duration-300 hover:scale-110"
+>
+          <img
+  src="https://i.ibb.co/Kp4P1Q5p/CX-logo-page-0003.png"
+  alt="Cosmolix"
+  className="h-24 md:h-[110px] w-auto object-contain"
+/>
+</Link>
 
         {/* Desktop */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-12">
           {navLinks.map((l) => (
             <Link
               key={l.href}
               to={l.href}
-              className={`text-lg mt-6 font-medium transition-colors hover:text-primary ${
-                location.pathname === l.href
-                  ? "text-primary"
+              className={`relative text-sm font-medium transition-colors duration-300 hover:text-primary after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full ${
+                location.pathname.startsWith(l.href)
+                  ? "text-primary font-semibold"
                   : "text-muted-foreground"
               }`}
             >
@@ -57,7 +63,7 @@ const Navbar = () => {
           ))}
           <Link
             to="/contact"
-            className=" mt-6 inline-flex items-center justify-center rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground glow-btn transition-all hover:brightness-110"
+            className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:shadow-md hover:scale-105"
           >
             Get in Touch
           </Link>
@@ -77,18 +83,18 @@ const Navbar = () => {
         {mobileOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
+animate={{ opacity: 1, height: "auto" }}
+exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border/50 overflow-hidden"
           >
-            <div className="flex flex-col gap-4 px-6 py-6">
+            <div className="flex flex-col gap-5 px-6 py-6">
               {navLinks.map((l) => (
                 <Link
                   key={l.href}
                   to={l.href}
-                  className={`text-base font-medium transition-colors ${
+                  className={`text-base font-medium transition-colors duration-200 hover:text-primary ${
                     location.pathname === l.href
-                      ? "text-primary"
+                      ? "text-primary font-semibold"
                       : "text-muted-foreground"
                   }`}
                 >
@@ -96,6 +102,12 @@ const Navbar = () => {
                 </Link>
               ))}
             </div>
+            <Link
+  to="/contact"
+  className="mt-4 inline-flex items-center justify-center rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-white"
+>
+Get in Touch
+</Link>
           </motion.div>
         )}
       </AnimatePresence>

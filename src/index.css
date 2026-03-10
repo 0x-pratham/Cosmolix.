@@ -5,52 +5,59 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --background: 222 40% 7%;
-    --foreground: 210 20% 92%;
+:root {
+  /* MAIN BACKGROUND */
+  --background: 210 40% 98%;
+  --foreground: 235 25% 12%;
 
-    --card: 222 30% 12%;
-    --card-foreground: 210 20% 92%;
+  /* CARDS */
+  --card: 0 0% 100%;
+  --card-foreground: 235 25% 12%;
 
-    --popover: 222 30% 12%;
-    --popover-foreground: 210 20% 92%;
+  /* POPOVER */
+  --popover: 0 0% 100%;
+  --popover-foreground: 235 25% 12%;
 
-    --primary: 217 84% 53%;
-    --primary-foreground: 0 0% 100%;
+  /* COSMOLIX BRAND */
+  --primary: 263 90% 62%;   /* purple */
+  --primary-foreground: 0 0% 100%;
 
-    --secondary: 263 84% 58%;
-    --secondary-foreground: 0 0% 100%;
+  --secondary: 255 85% 55%;
+  --secondary-foreground: 0 0% 100%;
 
-    --muted: 222 25% 16%;
-    --muted-foreground: 215 15% 55%;
+  /* CYAN ACCENT */
+  --accent: 190 100% 50%;
+  --accent-foreground: 0 0% 100%;
 
-    --accent: 263 84% 58%;
-    --accent-foreground: 0 0% 100%;
+  /* MUTED */
+  --muted: 210 25% 94%;
+  --muted-foreground: 215 16% 45%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+  /* BORDERS */
+  --border: 220 20% 90%;
+  --input: 220 20% 90%;
 
-    --border: 222 20% 18%;
-    --input: 222 20% 18%;
-    --ring: 217 84% 53%;
+  /* RING */
+  --ring: 263 90% 62%;
 
-    --radius: 0.75rem;
+  --radius: 0.75rem;
 
-    --sidebar-background: 222 35% 9%;
-    --sidebar-foreground: 210 20% 92%;
-    --sidebar-primary: 217 84% 53%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 222 25% 16%;
-    --sidebar-accent-foreground: 210 20% 92%;
-    --sidebar-border: 222 20% 18%;
-    --sidebar-ring: 217 84% 53%;
+  /* SIDEBAR */
+  --sidebar-background: 0 0% 100%;
+  --sidebar-foreground: 235 25% 12%;
+  --sidebar-primary: 263 90% 62%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 210 25% 94%;
+  --sidebar-accent-foreground: 235 25% 12%;
+  --sidebar-border: 220 20% 90%;
+  --sidebar-ring: 263 90% 62%;
 
-    /* Custom tokens */
-    --glass-bg: 222 30% 12%;
-    --glass-border: 222 20% 22%;
-    --glow-blue: 217 84% 53%;
-    --glow-purple: 263 84% 58%;
-  }
+  /* CUSTOM TOKENS */
+  --glass-bg: 0 0% 100%;
+  --glass-border: 220 20% 90%;
+  --glow-blue: 190 100% 50%;
+  --glow-purple: 263 90% 62%;
+}
 }
 
 @layer base {
@@ -66,52 +73,67 @@
 
 @layer utilities {
   .glass-card {
-    @apply bg-card/60 backdrop-blur-xl border border-border/50 rounded-xl;
-  }
+  @apply bg-white/80 backdrop-blur-xl border border-border rounded-xl shadow-sm;
+}
 
   .glass-card-hover {
-    @apply glass-card transition-all duration-300 hover:border-primary/30 hover:-translate-y-1 hover:shadow-[0_8px_32px_-8px_hsl(217_84%_53%/0.2)];
-  }
+  @apply glass-card transition-all duration-300 hover:border-primary/40 hover:-translate-y-1 hover:shadow-lg;
+}
 
   .glow-blue {
-    box-shadow: 0 0 60px -12px hsl(217 84% 53% / 0.4);
-  }
+  box-shadow: 0 0 80px -12px hsl(190 100% 55% / 0.45);
+}
 
-  .glow-purple {
-    box-shadow: 0 0 60px -12px hsl(263 84% 58% / 0.4);
-  }
+.glow-purple {
+  box-shadow: 0 0 80px -12px hsl(263 90% 62% / 0.45);
+}
 
   .glow-btn {
-    box-shadow: 0 0 20px -4px hsl(217 84% 53% / 0.5);
-  }
+  box-shadow: 
+    0 0 20px rgba(139,92,246,0.35),
+    0 0 40px rgba(6,182,212,0.25);
+}
 
   .glow-btn-purple {
     box-shadow: 0 0 20px -4px hsl(263 84% 58% / 0.5);
   }
 
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
-  }
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(
+    90deg,
+    hsl(263 90% 62%),
+    hsl(255 85% 55%),
+    hsl(190 100% 50%)
+  );
+}
 
   .bg-glow {
-    background: radial-gradient(
-      ellipse 80% 60% at 50% 0%,
-      hsl(217 84% 53% / 0.12) 0%,
-      hsl(263 84% 58% / 0.06) 40%,
-      transparent 70%
-    );
-  }
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 0%,
+    hsl(263 90% 62% / 0.12) 0%,
+    hsl(190 100% 50% / 0.10) 40%,
+    transparent 70%
+  );
+}
 
   .bg-glow-bottom {
-    background: radial-gradient(
-      ellipse 80% 50% at 50% 100%,
-      hsl(263 84% 58% / 0.1) 0%,
-      hsl(217 84% 53% / 0.05) 40%,
-      transparent 70%
-    );
-  }
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 100%,
+    hsl(190 100% 50% / 0.10) 0%,
+    hsl(263 90% 62% / 0.08) 40%,
+    transparent 70%
+  );
+}
 
   .section-spacing {
     @apply py-24 md:py-32;
   }
+}
+
+.bg-grid {
+  background-image: 
+    linear-gradient(to right, rgba(0,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
