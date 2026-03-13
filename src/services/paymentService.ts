@@ -18,10 +18,29 @@ export const openRazorpayPayment = () => {
 
     description: "Internship Registration",
 
-    handler: function () {
+    handler: async function () {
 
-      window.location.href="/internship/success"
-    },
+const application = JSON.parse(
+localStorage.getItem("internshipApplication") || "{}"
+)
+
+if(application?.email){
+
+await fetch("/api/update-payment",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body: JSON.stringify({
+email: application.email
+})
+})
+
+}
+
+window.location.href="/internship/success"
+
+},
 
     theme: {
       color: "#6366f1"

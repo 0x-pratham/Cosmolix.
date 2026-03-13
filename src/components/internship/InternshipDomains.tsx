@@ -68,34 +68,37 @@ initial={{ opacity: 0, y: 30 }}
 whileInView={{ opacity: 1, y: 0 }}
 viewport={{ once: true }}
 transition={{ delay: i * 0.08 }}
-className="group glass-card p-7 rounded-2xl border border-border/50 flex flex-col hover:border-primary/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+className="group relative glass-card p-7 rounded-2xl border border-border/50 flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-primary/40"
 >
 
-{/* Icon */}
-
 <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-primary/10 mb-5 group-hover:bg-primary/20 transition">
-
 <Icon className="w-6 h-6 text-primary"/>
-
 </div>
-
-{/* Title */}
 
 <h3 className="text-lg font-semibold text-foreground">
 {domain.title}
 </h3>
 
-{/* Description */}
-
-<p className="text-sm text-muted-foreground mt-3 leading-relaxed flex-1">
+<p className="text-sm text-muted-foreground mt-2 leading-relaxed">
 {domain.description}
 </p>
 
-{/* Divider */}
+<div className="flex flex-wrap gap-2 mt-4">
+{domain.skills.map((skill)=>(
+<span
+key={skill}
+className="text-xs bg-muted px-2 py-1 rounded-md"
+>
+{skill}
+</span>
+))}
+</div>
+
+<p className="text-xs text-muted-foreground mt-4">
+🎯 Outcome: {domain.outcome}
+</p>
 
 <div className="border-t border-border/40 my-6"/>
-
-{/* CTA */}
 
 <Link
 to={`/internship/apply?domain=${domain.id}`}

@@ -1,120 +1,150 @@
 import { useEffect, useState } from "react"
 import { supabase } from "@/lib/supabaseClient"
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts"
+import {
+BarChart,
+Bar,
+XAxis,
+YAxis,
+Tooltip,
+ResponsiveContainer
+} from "recharts"
 
 const AdminAnalytics = () => {
 
-  const [stats,setStats] = useState({
-    total:0,
-    approved:0,
-    pending:0,
-    revenue:0
-  })
+const [applications,setApplications] = useState<any[]>([])
+const [loading,setLoading] = useState(true)
 
-  const [domainData,setDomainData] = useState<any[]>([])
+useEffect(()=>{
 
-  useEffect(()=>{
+const loadData = async()=>{
 
-    const loadAnalytics = async () => {
+const { data } = await supabase
+.from("internship_applications")
+.select("*")
 
-      const { data } = await supabase
-        .from("internship_applications")
-        .select("*")
+setApplications(data || [])
+setLoading(false)
 
-      if(!data) return
+}
 
-      const total = data.length
+loadData()
 
-      const approved = data.filter(d => d.status === "approved").length
+},[])
 
-      const pending = data.filter(d => d.status === "pending").length
+if(loading){
+return <p className="text-muted-foreground">Loading analytics...</p>
+}
 
-      const revenue = total * 250
+const total = applications.length
+const paid = applications.filter(a=>a.payment_status==="paid").length
 
-      setStats({
-        total,
-        approved,
-        pending,
-        revenue
-      })
+const unpaid = applications.filter(
+a=>!a.payment_status || a.payment_status==="unpaid"
+).length
 
-      const domainCounts:any = {}
+const revenue = paid * 250
+const approved = applications.filter(a=>a.status==="approved").length
+const rejected = applications.filter(a=>a.status==="rejected").length
+const pending = applications.filter(a=>!a.status || a.status==="pending").length
 
-      data.forEach(app => {
+const domainStats:any = {}
 
-        domainCounts[app.domain] =
-          (domainCounts[app.domain] || 0) + 1
+applications.forEach(app=>{
+if(!domainStats[app.domain]){
+domainStats[app.domain] = 0
+}
+domainStats[app.domain]++
+})
 
-      })
+const chartData = Object.keys(domainStats).map(domain=>({
+domain,
+count: domainStats[domain]
+}))
 
-      const chartData = Object.keys(domainCounts).map(domain => ({
-        domain,
-        count:domainCounts[domain]
-      }))
+return (
 
-      setDomainData(chartData)
+<div className="space-y-10">
 
-    }
+<div className="grid grid-cols-2 md:grid-cols-5 gap-6">
 
-    loadAnalytics()
+<div className="glass-card-hover p-6 text-center">
+<p className="text-muted-foreground text-sm">Total Applications</p>
+<h3 className="text-3xl font-bold mt-2">{total}</h3>
+</div>
 
-  },[])
+<div className="glass-card-hover p-6 text-center">
+<p className="text-muted-foreground text-sm">Pending</p>
+<h3 className="text-3xl font-bold mt-2">{pending}</h3>
+</div>
 
-  return (
+<div className="glass-card-hover p-6 text-center">
+<p className="text-muted-foreground text-sm">Approved</p>
+<h3 className="text-3xl font-bold mt-2">{approved}</h3>
+</div>
 
-    <div className="space-y-10">
+<div className="glass-card-hover p-6 text-center">
 
-      <div className="grid md:grid-cols-4 gap-6">
+<p className="text-muted-foreground text-sm">
+Paid Applications
+</p>
 
-        <div className="glass-card-hover p-6 text-center">
-          <p>Total Applications</p>
-          <h2 className="text-3xl font-bold">{stats.total}</h2>
-        </div>
+<h3 className="text-3xl font-bold mt-2">
+{paid}
+</h3>
 
-        <div className="glass-card-hover p-6 text-center">
-          <p>Approved</p>
-          <h2 className="text-3xl font-bold text-green-600">{stats.approved}</h2>
-        </div>
+</div>
 
-        <div className="glass-card-hover p-6 text-center">
-          <p>Pending</p>
-          <h2 className="text-3xl font-bold text-yellow-500">{stats.pending}</h2>
-        </div>
+<div className="glass-card-hover p-6 text-center">
 
-        <div className="glass-card-hover p-6 text-center">
-          <p>Revenue</p>
-          <h2 className="text-3xl font-bold">₹{stats.revenue}</h2>
-        </div>
+<p className="text-muted-foreground text-sm">
+Revenue Generated
+</p>
 
-      </div>
+<h3 className="text-3xl font-bold mt-2 text-green-600">
+₹{revenue}
+</h3>
 
-      <div className="glass-card-hover p-8">
+</div>
 
-        <h3 className="text-xl font-semibold mb-6">
-          Domain Popularity
-        </h3>
+<div className="glass-card-hover p-6 text-center">
+<p className="text-muted-foreground text-sm">Rejected</p>
+<h3 className="text-3xl font-bold mt-2">{rejected}</h3>
+</div>
 
-        <ResponsiveContainer width="100%" height={300}>
+</div>
 
-          <BarChart data={domainData}>
+<div className="glass-card-hover p-8">
 
-            <XAxis dataKey="domain" />
+<h3 className="text-lg font-semibold mb-6">
+Applications by Domain
+</h3>
 
-            <YAxis />
+<div style={{width:"100%",height:300}}>
 
-            <Tooltip />
+<ResponsiveContainer>
 
-            <Bar dataKey="count" />
+<BarChart data={chartData}>
 
-          </BarChart>
+<XAxis dataKey="domain" />
 
-        </ResponsiveContainer>
+<YAxis />
 
-      </div>
+<Tooltip />
 
-    </div>
+<Bar dataKey="count" radius={[6,6,0,0]} />
 
-  )
+</BarChart>
+
+</ResponsiveContainer>
+
+</div>
+
+</div>
+
+</div>
+
+)
+
 }
 
 export default AdminAnalytics

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion"
+import { openRazorpayPayment } from "@/services/paymentService"
 
 const domainMap: any = {
   web: "Full Stack Web Development",
@@ -150,6 +151,7 @@ One-time payment for program enrollment
 <motion.button
 whileHover={{ scale:1.03 }}
 whileTap={{ scale:0.97 }}
+onClick={openRazorpayPayment}
 className="mt-8 w-full bg-gradient-to-r from-primary to-accent text-white py-3 rounded-lg font-semibold shadow-md"
 >
 Pay ₹250 with Razorpay

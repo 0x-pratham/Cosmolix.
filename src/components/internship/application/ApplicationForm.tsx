@@ -1,9 +1,11 @@
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import { motion, AnimatePresence } from "framer-motion"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { supabase } from "@/lib/supabaseClient"
+import ResumeUpload from "./ResumeUpload"
 
 const schema = z.object({
   name: z.string().min(2, "Name required"),
@@ -22,6 +24,7 @@ const ApplicationForm = () => {
 
   const [loading,setLoading] = useState(false)
   const [step,setStep] = useState(1)
+  const [resumeUrl,setResumeUrl] = useState("")
 
   const {
     register,
@@ -50,7 +53,14 @@ const ApplicationForm = () => {
 
     const { error } = await supabase
     .from("internship_applications")
-    .insert([data])
+    .insert([
+{
+...data,
+resume_url: resumeUrl,
+status: "pending",
+payment_status: "unpaid"
+}
+])
 
     setLoading(false)
 
@@ -73,29 +83,51 @@ const ApplicationForm = () => {
 
   {/* Progress Indicator */}
 
-  <div className="flex justify-between mb-10 text-sm font-medium">
+  <div className="mb-10">
 
-  <div className={`flex-1 text-center ${step>=1 ? "text-primary":"text-muted-foreground"}`}>
-  Step 1
-  </div>
+<div className="flex justify-between text-xs font-semibold mb-3">
 
-  <div className={`flex-1 text-center ${step>=2 ? "text-primary":"text-muted-foreground"}`}>
-  Step 2
-  </div>
+<span className={step>=1 ? "text-primary":"text-muted-foreground"}>
+Basic Info
+</span>
 
-  <div className={`flex-1 text-center ${step>=3 ? "text-primary":"text-muted-foreground"}`}>
-  Review
-  </div>
+<span className={step>=2 ? "text-primary":"text-muted-foreground"}>
+Domain
+</span>
 
-  </div>
+<span className={step>=3 ? "text-primary":"text-muted-foreground"}>
+Review
+</span>
 
-  <form onSubmit={handleSubmit(onSubmit)}>
+</div>
 
+<div className="w-full h-2 bg-muted rounded-full overflow-hidden">
+
+<motion.div
+className="h-full bg-gradient-to-r from-primary to-accent"
+initial={{width:0}}
+animate={{width:`${(step/3)*100}%`}}
+transition={{duration:0.4}}
+/>
+
+</div>
+
+</div>
+
+<form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
   {/* STEP 1 */}
 
-  {step === 1 && (
+  <AnimatePresence mode="wait">
 
-  <div className="grid md:grid-cols-2 gap-6">
+{step === 1 && (
+
+<motion.div
+key="step1"
+initial={{opacity:0, x:50}}
+animate={{opacity:1, x:0}}
+exit={{opacity:0, x:-50}}
+transition={{duration:0.3}}
+>
 
   <div>
   <input
@@ -133,7 +165,7 @@ const ApplicationForm = () => {
   <p className="text-xs text-red-500 mt-1">{errors.college?.message}</p>
   </div>
 
-  </div>
+  </motion.div>
 
   )}
 
@@ -141,7 +173,13 @@ const ApplicationForm = () => {
 
   {step === 2 && (
 
-  <div>
+<motion.div
+key="step2"
+initial={{opacity:0, x:50}}
+animate={{opacity:1, x:0}}
+exit={{opacity:0, x:-50}}
+transition={{duration:0.3}}
+>
 
   <select
   {...register("domain")}
@@ -160,7 +198,11 @@ const ApplicationForm = () => {
 
   <p className="text-xs text-red-500 mt-1">{errors.domain?.message}</p>
 
-  </div>
+  <div className="mt-6">
+  <ResumeUpload setResumeUrl={setResumeUrl} />
+</div>
+
+  </motion.div>
 
   )}
 
@@ -168,7 +210,13 @@ const ApplicationForm = () => {
 
   {step === 3 && (
 
-  <div className="space-y-3 text-sm bg-muted/40 p-6 rounded-lg">
+  <motion.div
+  key="step3"
+  initial={{opacity:0, x:50}}
+  animate={{opacity:1, x:0}}
+  exit={{opacity:0, x:-50}}
+  transition={{duration:0.3}}
+  >
 
   <p><strong>Name:</strong> {watch("name")}</p>
   <p><strong>Email:</strong> {watch("email")}</p>
@@ -176,45 +224,46 @@ const ApplicationForm = () => {
   <p><strong>College:</strong> {watch("college")}</p>
   <p><strong>Domain:</strong> {watch("domain")}</p>
 
-  </div>
+  </motion.div>
 
   )}
+  </AnimatePresence>
 
   {/* Navigation Buttons */}
 
   <div className="flex justify-between mt-10">
 
-  {step > 1 && (
-  <button
-  type="button"
-  onClick={prevStep}
-  className="px-6 py-2 border rounded-lg hover:bg-muted"
-  >
-  Back
-  </button>
-  )}
+{step > 1 && (
+<button
+type="button"
+onClick={prevStep}
+className="px-6 py-2 border border-border rounded-lg hover:bg-muted transition"
+>
+Back
+</button>
+)}
 
-  {step < 3 && (
-  <button
-  type="button"
-  onClick={nextStep}
-  className="ml-auto px-6 py-2 bg-primary text-white rounded-lg hover:brightness-110"
-  >
-  Next
-  </button>
-  )}
+{step < 3 && (
+<button
+type="button"
+onClick={nextStep}
+className="ml-auto px-6 py-2 bg-gradient-to-r from-primary to-accent text-white rounded-lg font-semibold hover:brightness-110 transition"
+>
+Continue
+</button>
+)}
 
-  {step === 3 && (
-  <button
-  type="submit"
-  disabled={loading}
-  className="ml-auto px-6 py-2 bg-gradient-to-r from-primary to-accent text-white rounded-lg"
-  >
-  {loading ? "Processing..." : "Continue to Payment"}
-  </button>
-  )}
+{step === 3 && (
+<button
+type="submit"
+disabled={loading}
+className="ml-auto px-6 py-2 bg-gradient-to-r from-primary to-accent text-white rounded-lg font-semibold hover:brightness-110 transition disabled:opacity-60"
+>
+{loading ? "Submitting..." : "Continue to Payment"}
+</button>
+)}
 
-  </div>
+</div>
 
   </form>
 

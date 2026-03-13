@@ -34,7 +34,7 @@ const Navbar = () => {
   : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between h-24 md:h-28 px-4 md:px-8">
+      <div className="container mx-auto flex items-center justify-between h-20 md:h-22 px-6 md:px-10">
         <Link
   to="/"
   className="flex items-center transition-transform duration-300 hover:scale-110"
@@ -47,13 +47,14 @@ const Navbar = () => {
 </Link>
 
         {/* Desktop */}
-        <div className="hidden md:flex items-center gap-12">
+        <div className="hidden md:flex items-center gap-10">
           {navLinks.map((l) => (
             <Link
               key={l.href}
               to={l.href}
-              className={`relative text-sm font-medium transition-colors duration-300 hover:text-primary after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full ${
-                location.pathname.startsWith(l.href)
+              className={`relative text-sm font-medium transition-colors duration-300 hover:text-primary after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-primary after:rounded-full after:transition-all after:duration-300 hover:after:w-full ${
+                location.pathname === l.href ||
+location.pathname.startsWith(l.href + "/")
                   ? "text-primary font-semibold"
                   : "text-muted-foreground"
               }`}
@@ -63,7 +64,7 @@ const Navbar = () => {
           ))}
           <Link
             to="/contact"
-            className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:shadow-md hover:scale-105"
+            className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-primary to-accent px-6 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:brightness-110"
           >
             Get in Touch
           </Link>
@@ -87,7 +88,7 @@ animate={{ opacity: 1, height: "auto" }}
 exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border/50 overflow-hidden"
           >
-            <div className="flex flex-col gap-5 px-6 py-6">
+            <div className="flex flex-col gap-6 px-6 py-8 text-center">
               {navLinks.map((l) => (
                 <Link
                   key={l.href}
