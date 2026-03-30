@@ -2,7 +2,12 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -17,14 +22,24 @@ export default {
         sans: ["Inter", "system-ui", "sans-serif"],
       },
       colors: {
+        // --- Custom Cosmolix Brand Colors ---
+        cosmo: {
+          blue: "#3B82F6",    // The top of your "X"
+          green: "#10B981",   // The bottom of your "X"
+          charcoal: "#1A1F2C", // The deep grey from your "C"
+          navy: "#0F172A",     // A professional background deep navy
+        },
+        // --- End Brand Colors ---
+        
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          // Setting the primary to your logo's Blue
+          DEFAULT: "#3B82F6", 
+          foreground: "#FFFFFF",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -39,8 +54,9 @@ export default {
           foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+          // Setting the accent to your logo's Green
+          DEFAULT: "#10B981",
+          foreground: "#FFFFFF",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -50,16 +66,11 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
-        },
+      },
+      // --- Custom Cosmolix Gradients ---
+      backgroundImage: {
+        "cosmo-gradient": "linear-gradient(to bottom right, #3B82F6, #10B981)",
+        "cosmo-glow": "radial-gradient(circle at center, rgba(59, 130, 246, 0.15) 0%, transparent 70%)",
       },
       borderRadius: {
         lg: "var(--radius)",

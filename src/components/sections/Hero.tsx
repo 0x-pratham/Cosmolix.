@@ -1,31 +1,31 @@
+"use client";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const Hero = () => (
-  <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-white via-slate-50 to-slate-100 pt-24">
+  <section className="relative min-h-screen flex items-center overflow-hidden bg-[#0F172A] pt-24">
+    
+    <div className="absolute inset-0">
+      <motion.img
+        src="https://i.ibb.co/b5wvgHNL/Hero2.jpg"
+        alt=""
+        className="w-full h-full object-cover opacity-[0.2]"
+        animate={{ scale: [1, 1.05, 1] }}
+        transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+      />
+      {/* Dark gradient overlay to blend the image into the background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0F172A]/80 via-[#0F172A]/40 to-[#0F172A]" />
+    </div>
 
-    {/* 🔥 Background Image Layer */}
-<div className="absolute inset-0">
-  <motion.img
-    src="https://i.ibb.co/b5wvgHNL/Hero2.jpg"
-    alt=""
-    className="w-full h-full object-cover opacity-[0.6]"
-    animate={{ scale: [1, 1.05, 1] }}
-    transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
-  />
-  
-  <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-white/20 to-slate-100" />
-
-</div>
-    {/* Ambient Background Glow */}
+    {/* Ambient Brand Glow - Blue & Green based on logo */}
     <div
-      className="absolute top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2 
-      w-[700px] h-[480px] rounded-full opacity-15 blur-[140px]
-      bg-gradient-to-br from-indigo-400/30 via-blue-300/30 to-cyan-300/30
+      className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 
+      w-[800px] h-[500px] rounded-full opacity-20 blur-[120px]
+      bg-gradient-to-br from-cosmo-blue via-cosmo-green to-transparent
       pointer-events-none"
     />
     
-    <div className="container mx-auto px-4 md:px-8 relative z-10 grid lg:grid-cols-2 gap-12 items-center pt-20">
+    <div className="container mx-auto px-4 md:px-8 relative z-10 grid lg:grid-cols-2 gap-12 items-center pt-10">
 
       {/* LEFT COLUMN — CONTENT */}
       <motion.div
@@ -34,121 +34,115 @@ const Hero = () => (
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
       >
-        {/* Tagline */}
-        <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.25em] uppercase text-indigo-600 mb-6">
-  <span className="h-[6px] w-[6px] rounded-full bg-indigo-600"></span>
-  AI-Powered Enterprise Solutions
-</span>
+        {/* Brand Tagline */}
+        <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.25em] uppercase text-cosmo-blue mb-6">
+          <span className="h-[6px] w-[6px] rounded-full bg-cosmo-green animate-pulse"></span>
+          AI-Powered Enterprise Solutions
+        </span>
 
-        {/* Heading */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-bold tracking-tight text-slate-950 drop-shadow-[0_4px_20px_rgba(0,0,0,0.15)] leading-[1.05] max-w-2xl mx-auto lg:mx-0">
+        {/* Heading - Increased contrast with white text */}
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-bold tracking-tight text-white leading-[1.05] max-w-2xl mx-auto lg:mx-0">
           Engineering the Future with{" "}
-          <span className="gradient-text">AI-Driven Systems</span>
+          <span className="bg-gradient-to-r from-cosmo-blue to-cosmo-green bg-clip-text text-transparent">
+            AI-Driven Systems
+          </span>
         </h1>
 
-        {/* Description */}
-        <p className="mt-6 text-lg md:text-xl text-slate-700 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-          We design and develop AI-powered software, cloud platforms, and scalable SaaS solutions for startups and enterprises.
+        {/* Description - Muted gray for elegance */}
+        <p className="mt-6 text-lg md:text-xl text-gray-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+          We design and develop scalable AI software, cloud-native platforms, and intelligent SaaS infrastructure for modern enterprises.
         </p>
 
-        {/* Feature Badges */}
-        <div className="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm">
-          <span className="px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 font-medium">
+        {/* Feature Badges - Dark styled */}
+        <div className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs">
+          <span className="px-4 py-1.5 rounded-full bg-cosmo-blue/10 border border-cosmo-blue/20 text-cosmo-blue font-medium">
             AI Powered
           </span>
-
-          <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 font-medium">
+          <span className="px-4 py-1.5 rounded-full bg-cosmo-green/10 border border-cosmo-green/20 text-cosmo-green font-medium">
             Startup Ready
           </span>
-
-          <span className="px-3 py-1 rounded-full bg-slate-100 text-slate-700 font-medium">
+          <span className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-gray-300 font-medium">
             Enterprise Secure
           </span>
         </div>
 
-        {/* CTA Buttons */}
+        {/* CTA Buttons - Matching Logo "X" */}
         <div className="mt-10 flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-5">
+          <Link
+            to="/products"
+            className="group relative inline-flex items-center justify-center rounded-full bg-gradient-to-r from-cosmo-blue to-cosmo-green px-8 py-3.5 text-sm font-bold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(59,130,246,0.4)]"
+          >
+            Explore Products →
+          </Link>
 
-          {/* PRIMARY CTA */}
-<Link
-  to="/products"
-  className="group inline-flex items-center justify-center rounded-full bg-gradient-to-r from-primary to-accent px-8 py-3.5 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
->
-  Explore Products →
-</Link>
-
-{/* SECONDARY CTA */}
-<Link
-  to="/internship"
-  className="inline-flex items-center justify-center rounded-full px-8 py-3.5 text-sm font-semibold text-slate-700 border border-slate-300 hover:bg-slate-100 transition"
->
-  Start Internship
-</Link>
-
+          <Link
+            to="/internship"
+            className="inline-flex items-center justify-center rounded-full px-8 py-3.5 text-sm font-semibold text-white border border-white/20 hover:bg-white/5 transition-all"
+          >
+            Start Internship
+          </Link>
         </div>
-
-        {/* Trust Signal */}
-        <div className="mt-12 text-sm text-slate-500">
-          Build Scalable AI Products for the Future
-        </div>
-        
-
       </motion.div>
 
-      {/* RIGHT COLUMN — VISUAL PANEL */}
+      {/* RIGHT COLUMN — THE VISUAL PANEL (Dark Glassmorphism) */}
       <motion.div
         className="hidden lg:flex items-center justify-center"
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
       >
         <motion.div
-  animate={{ y: [0, -12, 0] }}
-  transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
->
-<div className="relative w-[420px] h-[420px] rounded-3xl border border-white/40 bg-white/80 backdrop-blur-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] flex items-center justify-center overflow-hidden">
-{/* Subtle glow effect */}
-<div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_20%_20%,#6366f1,transparent)]" />
-{/* Background Image */}
-<div className="absolute inset-0 opacity-[1.25]">
-  <img
-  src="https://i.ibb.co/BKny65gV/AI-ROBOT-UNIVERSE.jpg"
-  alt=""
- className="w-full h-full object-cover grayscale opacity-80"
-/>
-</div>
-{/* White overlay to keep text readable */}
-<div className="absolute inset-0 bg-gradient-to-br from-white/60 via-white/50 to-white/60" />
-          <div className="relative z-10 text-center p-10">
+          animate={{ y: [0, -15, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <div className="relative w-[450px] h-[450px] rounded-[2.5rem] border border-white/10 bg-[#1A1F2C]/40 backdrop-blur-3xl shadow-2xl flex items-center justify-center overflow-hidden group">
+            
+            {/* Inner Glow Image */}
+            <div className="absolute inset-0 opacity-40 group-hover:opacity-60 transition-opacity duration-700">
+              <img
+                src="https://i.ibb.co/BKny65gV/AI-ROBOT-UNIVERSE.jpg"
+                alt=""
+                className="w-full h-full object-cover scale-110"
+              />
+            </div>
+            
+            {/* Dark tint to keep text readable */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#0F172A]/90 via-[#0F172A]/70 to-[#0F172A]/90" />
+            
+            <div className="relative z-10 text-center p-12">
+              <div className="w-16 h-16 bg-gradient-to-br from-cosmo-blue to-cosmo-green rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-lg shadow-cosmo-blue/20">
+                <span className="text-white font-bold text-xl">CX</span>
+              </div>
 
-            <p className="text-xs text-indigo-500 font-medium mb-2 uppercase tracking-wider">
-AI Platform
-</p>
+              <p className="text-xs text-cosmo-blue font-bold mb-2 uppercase tracking-[0.2em]">
+                AI Intelligence Core
+              </p>
 
-<h3 className="text-xl font-semibold text-slate-800">
-Cosmolix Intelligence Core
-</h3>
+              <h3 className="text-2xl font-bold text-white tracking-tight">
+                Autonomous Systems
+              </h3>
 
-<p className="text-sm text-slate-500 mt-3">
-Autonomous AI workflows, scalable cloud architecture, and intelligent SaaS infrastructure.
-</p>
+              <p className="text-sm text-gray-400 mt-4 leading-relaxed">
+                Processing complex datasets through neural architectures for real-time enterprise decision making.
+              </p>
 
-<div className="mt-6 grid grid-cols-3 gap-3 text-xs text-slate-700">
-  <div className="rounded-md bg-slate-100 py-2">AI</div>
-  <div className="rounded-md bg-slate-100 py-2">Cloud</div>
-  <div className="rounded-md bg-slate-100 py-2">Data</div>
-</div>
-
+              <div className="mt-8 grid grid-cols-3 gap-3 text-[10px] font-bold text-cosmo-blue uppercase tracking-widest">
+                <div className="rounded-lg bg-white/5 border border-white/10 py-3">Neural</div>
+                <div className="rounded-lg bg-white/5 border border-white/10 py-3">Cloud</div>
+                <div className="rounded-lg bg-white/5 border border-white/10 py-3">Edge</div>
+              </div>
+            </div>
           </div>
-        </div>
-</motion.div>
-</motion.div>
-<div className="absolute bottom-3 left-1/2 -translate-x-1/2 text-slate-800 text-xs animate-bounce">
-↓
-</div>
+        </motion.div>
+      </motion.div>
+
+      {/* Animated Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/30 text-xs animate-bounce flex flex-col items-center gap-2">
+        <span className="tracking-widest uppercase text-[10px]">Scroll</span>
+        <div className="w-[1px] h-10 bg-gradient-to-b from-cosmo-blue to-transparent" />
+      </div>
 
     </div>
-
   </section>
 );
 
