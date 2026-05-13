@@ -1,0 +1,29 @@
+// server/prisma/schema.prisma
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL") 
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model ContactSubmission {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  firstName String
+  lastName  String?
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model InternApplication {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String
+  phone     String
+  domain    String
+  college   String
+  paymentId String
+  createdAt DateTime @default(now())
+}

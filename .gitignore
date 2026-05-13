@@ -11,11 +11,6 @@ dist-ssr/
 build/
 out/
 
-# Environment files
-.env
-.env.local
-.env.*.local
-
 # Logs
 logs/
 *.log
@@ -55,3 +50,5 @@ coverage/
 dist-ssr/
 *.pem
 thumbs.db
+
+/src/generated/prisma
