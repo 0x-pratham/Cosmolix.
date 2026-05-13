@@ -129,5 +129,9 @@ app.post('/api/internship/apply', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Cosmolix Production Engine Active on Port ${PORT}`));
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 3001;
+  app.listen(PORT, () => console.log(`Cosmolix Local Engine Active on Port ${PORT}`));
+}
+
+export default app;

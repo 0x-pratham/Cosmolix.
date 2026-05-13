@@ -161,7 +161,7 @@ export default function ContactSection() {
     const loadingToast = toast.loading("Processing your inquiry...");
 
     try {
-      const response = await fetch('http://localhost:3001/api/transmit', {
+      const response = await fetch('/api/transmit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
