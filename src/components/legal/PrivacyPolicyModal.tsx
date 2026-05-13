@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ShieldCheck, Lock, Database, Globe, Scale, Cpu, CheckCircle2 } from 'lucide-react';
+import { X, ShieldCheck, Database, Globe, Scale, Cpu, CheckCircle2 } from 'lucide-react';
 
 interface ModalProps {
   isOpen: boolean;

@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from 'react'
 import { FlaskConical, ShieldCheck, Cpu, } from 'lucide-react'
-import Navbar from '../components/layout/Navbar'
 
 function useFadeIn(threshold = 0.15) {
   const ref = useRef<HTMLDivElement>(null)

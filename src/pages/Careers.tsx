@@ -58,10 +58,10 @@ export default function CareersPage() {
         }
     }, [isPrivacyOpen, isTermsOpen, setValue]);
 
-    const handleApply = (domainName: string) => {
-        setSelectedDomain(domainName);
-        setIsModalOpen(true);
-    };
+    // const handleApply = (domainName: string) => {
+    //     setSelectedDomain(domainName);
+    //     setIsModalOpen(true);
+    // };
 
     const processPayment = async (data: EnrollmentData) => {
         const policyAgreed = localStorage.getItem('cosmolix_policy_agreement') === 'true';

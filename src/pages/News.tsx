@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import Navbar from '../components/layout/Navbar'
-import Footer from '../components/layout/Footer'
 import NewsCard from '../components/ui/NewsCard'
 import NewsArticlePage from '../components/ui/NewsArticlePage'
 import { SEED_ARTICLES, type NewsArticle } from '../data/newsData'

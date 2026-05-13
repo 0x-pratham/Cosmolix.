@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from 'react'
-import { ArrowRight, Zap, PieChart, Shield, Sparkles } from 'lucide-react'
+import { Zap, PieChart, Shield, Sparkles } from 'lucide-react'
 import { motion, useScroll, useTransform, AnimatePresence, type Variants } from 'framer-motion'
 
 const products = [
