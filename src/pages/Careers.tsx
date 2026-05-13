@@ -36,7 +36,7 @@ const DOMAINS = [
 ];
 
 export default function CareersPage() {
-    const [selectedDomain, setSelectedDomain] = useState("");
+    const [selectedDomain] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
     const [isTermsOpen, setIsTermsOpen] = useState(false);
