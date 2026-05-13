@@ -174,7 +174,7 @@ export default function ContactSection() {
       const result = await response.json();
 
       if (result.success) {
-        toast.success("Message successfully received", { id: loadingToast });
+        toast.success("Message successfully received, We usually reply within 24 hours ", { id: loadingToast });
         reset();
       } else {
         throw new Error(result.error || "System error occurred");
