@@ -23,15 +23,15 @@ const navLinks = [
       { label: 'Internships', href: '/careers#internships' },
     ],
   },
-  { label: 'About', href: '/about' }, 
-  { label: 'News', href: '/news' }, 
+  { label: 'About', href: '/about' },
+  { label: 'News', href: '/news' },
 ];
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const [hoveredLink, setHoveredLink] = useState<string | null>(null)
-  
+
   const { scrollY } = useScroll()
   const navBackground = useTransform(scrollY, [0, 50], ['rgba(250,250,248,0)', 'rgba(250,250,248,0.92)'])
   const navPadding = useTransform(scrollY, [0, 50], ['24px', '16px'])
@@ -89,9 +89,8 @@ export default function Navbar() {
           >
             <Link
               to={link.href}
-              className={`flex items-center gap-1.5 px-4 py-2 text-sm font-semibold transition-colors duration-300 no-underline ${
-                hoveredLink === link.label || openDropdown === link.label ? 'text-[#2563EB]' : 'text-[#334155]'
-              }`}
+              className={`flex items-center gap-1.5 px-4 py-2 text-sm font-semibold transition-colors duration-300 no-underline ${hoveredLink === link.label || openDropdown === link.label ? 'text-[#2563EB]' : 'text-[#334155]'
+                }`}
             >
               {link.label}
               {link.dropdown && (
@@ -116,9 +115,9 @@ export default function Navbar() {
                       to={item.href}
                       className="flex items-center justify-between px-5 py-2.5 text-sm text-[#334155] no-underline hover:text-[#2563EB] hover:bg-blue-600/5 transition-all group/item"
                     >
-                      <motion.div 
-                        initial={{ opacity: 0, x: -10 }} 
-                        animate={{ opacity: 1, x: 0 }} 
+                      <motion.div
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.05 }}
                         className="flex items-center gap-3"
                       >
@@ -157,22 +156,66 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ clipPath: 'circle(0% at 90% 5%)' }}
-            animate={{ clipPath: 'circle(150% at 90% 5%)' }}
-            exit={{ clipPath: 'circle(0% at 90% 5%)' }}
-            className="fixed inset-0 bg-[#0F172A] text-white flex flex-col justify-center px-12 md:hidden"
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 1, x: '100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            className="fixed inset-0 bg-slate-900 z-[60] flex flex-col md:hidden"
           >
-            <div className="flex flex-col gap-8">
+            <div className="flex pt-4 justify-between items-center px-8 border-b border-white/10">
+              <span className="font-serif font-bold text-xl text-white">COSMOLIX</span>
+              <button onClick={() => setMobileOpen(false)} className="text-white p-2">
+                <X size={28} />
+              </button>
+            </div>
+
+            <div className="flex flex-col justify-center flex-grow py-8 px-12 gap-12 bg-slate-900">
               {navLinks.map((link, i) => (
-                <motion.div key={link.label} initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 * i }}>
-                  <Link to={link.href} className="text-4xl font-serif font-bold text-white no-underline" onClick={() => setMobileOpen(false)}>
+                <motion.div
+                  key={link.label}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.1 * i }}
+                >
+                  <Link
+                    to={link.href}
+                    className="text-3xl font-serif font-bold text-white no-underline hover:text-[#2563EB] transition-colors"
+                    onClick={() => setMobileOpen(false)}
+                  >
                     {link.label}
                   </Link>
+
+                  {/* Optional: Show dropdown items in mobile view */}
+                  {link.dropdown && (
+                    <div className="flex flex-col gap-3 mt-3 ml-4">
+                      {link.dropdown.map((item) => (
+                        <Link
+                          key={item.label}
+                          to={item.href}
+                          className="text-lg text-white/60 no-underline"
+                          onClick={() => setMobileOpen(false)}
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
                 </motion.div>
               ))}
-              <Link to="/careers#internships" className="mt-8 block px-8 py-4 rounded-2xl bg-[#2563EB] text-center font-bold no-underline text-white shadow-xl" onClick={() => setMobileOpen(false)}>
-                Start Your Journey
-              </Link>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+              >
+                <Link
+                  to="/careers#internships"
+                  className="mt-4 block px-8 py-4 rounded-2xl bg-[#2563EB] text-center font-bold no-underline text-white shadow-xl hover:bg-blue-700 transition-all"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  Start Your Journey
+                </Link>
+              </motion.div>
             </div>
           </motion.div>
         )}
